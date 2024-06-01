@@ -20,5 +20,6 @@ public interface IManagerInfoService extends IService<ManagerInfo> {
     void saveEmployee(EmployeeInfo employeeInfo);
     boolean deleteEmployee(int ig);
     void update(EmployeeInfo employeeInfo);
+    List<EmployeeInfo> searchByDepartment(String department);
 
 }

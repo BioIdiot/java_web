@@ -19,4 +19,10 @@ class JavaWebApplicationTests {
         System.out.println(employees);
     }
 
+    @Test
+    void testSearch(){
+        List<EmployeeInfo> employees = managerInfoService.searchByDepartment("技术部");
+        System.out.println(employees);
+    }
+
 }

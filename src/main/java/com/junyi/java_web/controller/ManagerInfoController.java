@@ -56,4 +56,12 @@ public class ManagerInfoController {
     managerInfoService.update(employeeInfo);
         return "system";
     }
+
+    @GetMapping("/{department}")
+    public String searchEmployee(@PathVariable String department,ModelMap map) {
+        System.out.println(department);
+        List<EmployeeInfo>employees = managerInfoService.searchByDepartment(department);
+        map.addAttribute("employees", employees);
+        return "system";
+    }
 }

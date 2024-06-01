@@ -1,5 +1,6 @@
 package com.junyi.java_web.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.junyi.java_web.domain.EmployeeInfo;
 import com.junyi.java_web.domain.ManagerInfo;
 import com.junyi.java_web.mapper.EmployeeInfoMapper;
@@ -43,5 +44,12 @@ public class ManagerInfoServiceImpl extends ServiceImpl<ManagerInfoMapper, Manag
     @Override
     public void update(EmployeeInfo employeeInfo) {
         employeeInfoMapper.updateById(employeeInfo);
+    }
+
+    @Override
+    public List<EmployeeInfo> searchByDepartment(String department) {
+        LambdaQueryWrapper<EmployeeInfo> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(EmployeeInfo::getDepartment,department);
+        return  employeeInfoMapper.selectList(lqw);
     }
 }

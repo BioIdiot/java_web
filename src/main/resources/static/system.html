@@ -18,10 +18,10 @@
 <form style="margin: 20px;">
     <div class="container">
         <div class="row">
-            <div class="col-md-4"><input class="form-control" type="text" name="searchInfo"
+            <div class="col-md-4"><input id = "search-input" class="form-control" type="text" name="searchInfo"
                                          placeholder="请输入查询内容"></div>
             <div class="col-md-4" style="width: 90px;">
-                <button class="btn btn-primary" id="search" type="button">查询</button>
+                <button class="btn btn-primary" id="search" onclick="searchByDepartment()" type="button">查询</button>
             </div>
             <div class="col-md-4" style="width: 100px;">
                 <button class="btn btn-primary" type="button" style="width: 57.9745px;background: var(--bs-teal);"
@@ -300,6 +300,20 @@
            .then(function (response) {
                console.log('提交成功');
                window.location.reload();
+           })
+           .catch(function (error) {
+               console.error('提交失败', error);
+               // 在这里可以处理提交失败的情况
+           });
+   }
+
+   function searchByDepartment(){
+        let department = document.getElementById("search-input").value;
+       let url = '/manager-info/' + department;
+       axios.get(url)
+           .then(function (response) {
+               console.log('提交成功');
+
            })
            .catch(function (error) {
                console.error('提交失败', error);
