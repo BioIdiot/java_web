@@ -309,16 +309,12 @@
 
    function searchByDepartment(){
         let department = document.getElementById("search-input").value;
-       let url = '/manager-info/' + department;
-       axios.get(url)
-           .then(function (response) {
-               console.log('提交成功');
+        let back = "manager-info";
+        if (department==null){
+            window.location.href = 'http://localhost:8080/manager-info';
+        }
+       window.location.href = '/manager-info/' + department;
 
-           })
-           .catch(function (error) {
-               console.error('提交失败', error);
-               // 在这里可以处理提交失败的情况
-           });
    }
 </script>
 

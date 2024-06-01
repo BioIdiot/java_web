@@ -58,7 +58,7 @@ public class ManagerInfoController {
     }
 
     @GetMapping("/{department}")
-    public String searchEmployee(@PathVariable String department,ModelMap map) {
+    public String searchEmployee(ModelMap map ,@PathVariable String department) {
         System.out.println(department);
         List<EmployeeInfo>employees = managerInfoService.searchByDepartment(department);
         map.addAttribute("employees", employees);
