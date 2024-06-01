@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>员工管理系统</title>
+    <link rel="stylesheet" href="/css/bootstrap.min-system.css">
+</head>
+
+<body>
+
+
+
+<div class="container" style="margin: 40px;">
+    <h1 class="text-center">员工信息管理系统</h1>
+</div>
+<form style="margin: 20px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"><input class="form-control" type="text" name="searchInfo"
+                                         placeholder="请输入查询内容"></div>
+            <div class="col-md-4" style="width: 90px;">
+                <button class="btn btn-primary" id="search" type="button">查询</button>
+            </div>
+            <div class="col-md-4" style="width: 100px;">
+                <button class="btn btn-primary" type="button" style="width: 57.9745px;background: var(--bs-teal);"
+                        data-bs-target="#modal-1" data-bs-toggle="modal">新增
+                </button>
+                <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">添加员工</h4>
+                                <button class="btn-close" type="button" aria-label="Close"
+                                        data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col"
+                                             style="padding-top: 1px;margin-top: -1px;margin-bottom: -29px;">
+                                            <div class="input-group" style="padding-left: 5px;"><label
+                                                    class="form-label input-group-text"
+                                                    style="background: var(--bs-modal-bg);margin-left: 68px;border-style: none;">姓名：<input
+                                                    id="name" class="form-control" type="text"
+                                                    style="width: 221.019px;height: 31.9745px;margin: 2px;margin-right: 7px;margin-left: 33px;"
+                                                    required="" pattern="^[\u4e00-\u9fa5a-zA-Z]+$"></label></div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin: 20px;height: 20px;">
+                                        <div class="col" style="border-style: none;">
+                                            <p style="text-align: center;margin: 9px;margin-left: -38px;padding-left: 16px;">
+                                                性别：</p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="input-group" style="margin-left: -81px;"><input type="radio"
+                                                                                                        value="男"
+                                                                                                        name="gender"
+                                                                                                        style="background: var(--bs-blue);"
+                                                                                                        required=""><label
+                                                    class="form-label input-group-text"
+                                                    style="width: 37.9792px;height: 44.9745px;margin: 1px;padding: 0px 12px;background: var(--bs-modal-bg);padding-left: 3px;border-style: none;">男</label><input
+                                                    type="radio" value="女" name="gender"
+                                                    style="background: var(--bs-blue);" required=""><label
+                                                    class="form-label input-group-text"
+                                                    style="background: var(--bs-modal-bg);width: 37.9792px;height: 44.9745px;margin: 1px;padding: 0px 12px;padding-left: 2px;border-style: none;">女</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="input-group" style="padding-left: 5px;"><label
+                                                    class="form-label input-group-text"
+                                                    style="background: var(--bs-modal-bg);margin-left: 68px;border-style: none;">年龄：<input
+                                                    id="age" class="form-control" type="text"
+                                                    style="width: 221.019px;height: 31.9745px;margin: 2px;margin-right: 7px;margin-left: 33px;"
+                                                    pattern="^(1[7-9]|[2-5]\d)$" required=""></label></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="input-group" style="padding-left: 5px;"><label
+                                                    class="form-label input-group-text"
+                                                    style="background: var(--bs-modal-bg);margin-left: 68px;border-style: none;">部门：<input
+                                                    id="department" class="form-control" type="text"
+                                                    style="width: 221.019px;height: 31.9745px;margin: 2px;margin-right: 7px;margin-left: 33px;"
+                                                    required=""></label></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="input-group" style="padding-left: 5px;"><label
+                                                    class="form-label input-group-text"
+                                                    style="background: var(--bs-modal-bg);margin-left: 68px;border-style: none;">电话：<input
+                                                    id="Tel" class="form-control" type="text"
+                                                    style="width: 221.019px;height: 31.9745px;margin: 2px;margin-right: 7px;margin-left: 33px;"
+                                                    required=""></label></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-light" type="button" data-bs-dismiss="modal">取消</button>
+                                <button onclick="sendSaveRequest()" class="btn btn-primary" type="button"
+                                        data-bs-dismiss="modal">确认
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="table-responsive text-center" style="width: 885px;">
+    <table class="table">
+        <thead>
+        <tr class="text-center">
+            <th>ID</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>部门</th>
+            <th>联系方式</th>
+            <th style="width: 100px;text-align: center;">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center" th:each="employee : ${employees}">
+            <td id="id" th:text="${employee.id}">Cell 1</td>
+            <td id="Myname" th:text="${employee.name}">Cell 1</td>
+            <td class="text-center" th:text="${employee.gender}">Cell 2</td>
+            <td th:text="${employee.age}">Text</td>
+            <td id="e-department" th:text="${employee.department}">Text</td>
+            <td id="phone" th:text="${employee.phone}">Text</td>
+
+            <td style="width: 250px;height: 42px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6" style="width: 100px;height: 35px;padding: 0;">
+
+                            <button class="btn btn-success" type="button" onclick="editInput(this)"
+                                    style="height: 33px;background: var(--bs-indigo);" data-bs-target="#modal-2"
+                                    data-bs-toggle="modal">修改
+                            </button>
+                            <div class="modal fade" role="dialog" tabindex="-1" id="modal-2" >
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">修改员工信息</h4>
+                                            <button class="btn-close" type="button" aria-label="Close"
+                                                    data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body" >
+                                            <form>
+                                                <div style="display: none;"><input type="text" id="editID" name="hiddenInput" value="hidden value"></div>
+
+                                                <div class="row" style="margin-top: 0px;margin-bottom: 23px;">
+                                                    <div class="col"
+                                                         style="padding-top: 1px;margin-top: -1px;margin-bottom: -29px;">
+                                                        <div class="input-group" style="padding-left: 5px;"><label
+                                                                class="form-label input-group-text"
+                                                                style="background: var(--bs-modal-bg);margin-left: 68px;border-style: none;">姓名：<input
+                                                                class="form-control" id = "Modal-name"
+                                                                type="text"
+                                                                style="width: 221.019px;height: 31.9745px;margin: 2px;margin-right: 7px;margin-left: 33px;"
+                                                                required="" pattern="^[\u4e00-\u9fa5a-zA-Z]+$"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="input-group" style="padding-left: 5px;"><label
+                                                                class="form-label input-group-text"
+                                                                style="background: var(--bs-modal-bg);margin-left: 68px;border-style: none;">部门：<input
+                                                                class="form-control" id="Modal-department"
+                                                                type="text"
+                                                                style="width: 221.019px;height: 31.9745px;margin: 2px;margin-right: 7px;margin-left: 33px;"
+                                                                required=""></label></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="input-group" style="padding-left: 5px;"><label
+                                                                class="form-label input-group-text"
+                                                                style="background: var(--bs-modal-bg);margin-left: 68px;border-style: none;">电话：<input
+                                                                class="form-control" id = "Modal-phone"
+                                                                type="tel"
+                                                                style="width: 221.019px;height: 31.9745px;margin: 2px;margin-right: 7px;margin-left: 33px;"
+                                                                required="" pattern="^\d{11}$"></label></div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-light" type="button" data-bs-dismiss="modal">取消
+                                            </button>
+                                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal" onclick="updata()">确认</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="text-align: left;">
+                            <button class="btn btn-danger" th:onclick="'javascript:deleteEmployee('+${employee.id}+')' "
+                                    style="height: 33px;text-align: left;">删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="/js/bootstrap.min-system.js"></script>
+
+<script th:inline="javascript">
+
+    function sendSaveRequest() {
+        // 获取表单输入内容
+        const name = document.getElementById('name').value;
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const age = document.getElementById('age').value;
+        const department = document.getElementById('department').value;
+        const phone = document.getElementById('Tel').value;
+
+        // 构建要提交的数据对象
+        const Data = {
+            name: name,
+            gender: gender,
+            age: age,
+            department: department,
+            phone: phone
+        };
+        // 使用 Axios 发送 POST 请求
+        axios.post('/manager-info', Data)
+            .then(function (response) {
+                console.log('提交成功');
+                window.location.reload();
+            })
+            .catch(function (error) {
+                console.error('提交失败', error);
+                // 在这里可以处理提交失败的情况
+            });
+    }
+
+
+    function deleteEmployee(id) {
+        if(confirm("确认删除？")){
+            let url = '/manager-info/' + id;
+            axios.delete(url)
+                .then(function (response) {
+                    console.log('提交成功');
+                    window.location.reload();
+                })
+                .catch(function (error) {
+                    console.error('提交失败', error);
+                    // 在这里可以处理提交失败的情况
+                });
+        }
+
+    }
+
+
+   function editInput(button){
+       var row = button.closest('tr');
+       var modal = document.getElementById('modal-2');
+       var inputID = modal.querySelector('#editID');
+       var inputName = modal.querySelector('#Modal-name');
+       var inputDepartment = modal.querySelector('#Modal-department');
+       var inputPhone = modal.querySelector('#Modal-phone');
+       var department = row.querySelector('#e-department').innerText;
+       var phone = row.querySelector('#phone').innerText;
+       var name = row.querySelector('#Myname').innerText;
+       var ID = row.querySelector('#id').innerText;
+       console.log(name);
+       inputName.value = name;
+       inputDepartment.value = department;
+       inputPhone.value=phone;
+       inputID.value=ID;
+   }
+
+   function updata(){
+       // 获取表单输入内容
+       const name = document.getElementById('Modal-name').value;
+       const department = document.getElementById('Modal-department').value;
+       const phone = document.getElementById('Modal-phone').value;
+       const ID = document.getElementById("editID").value;
+       // 构建要提交的数据对象
+       const Data = {
+           name: name,
+           id: ID,
+           department: department,
+           phone: phone
+       };
+       // 使用 Axios 发送 POST 请求
+       axios.put('/manager-info', Data)
+           .then(function (response) {
+               console.log('提交成功');
+               window.location.reload();
+           })
+           .catch(function (error) {
+               console.error('提交失败', error);
+               // 在这里可以处理提交失败的情况
+           });
+   }
+</script>
+
+</body>
+
+</html>
