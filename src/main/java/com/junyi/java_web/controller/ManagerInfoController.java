@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author junyi
@@ -53,15 +54,20 @@ public class ManagerInfoController {
     @PutMapping
     public String update(@RequestBody EmployeeInfo employeeInfo) {
         System.out.println(employeeInfo);
-    managerInfoService.update(employeeInfo);
+        managerInfoService.update(employeeInfo);
         return "system";
     }
 
     @GetMapping("/{department}")
-    public String searchEmployee(ModelMap map ,@PathVariable String department) {
+    public String searchEmployee(ModelMap map, @PathVariable String department) {
         System.out.println(department);
-        List<EmployeeInfo>employees = managerInfoService.searchByDepartment(department);
-        map.addAttribute("employees", employees);
+        if (Objects.equals(department, "all")) {
+            List<EmployeeInfo> employees = managerInfoService.getAllemployee();
+            map.addAttribute("employees", employees);
+        } else {
+            List<EmployeeInfo> employees = managerInfoService.searchByDepartment(department);
+            map.addAttribute("employees", employees);
+        }
         return "system";
     }
 }

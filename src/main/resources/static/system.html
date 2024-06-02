@@ -309,9 +309,10 @@
 
    function searchByDepartment(){
         let department = document.getElementById("search-input").value;
-        let back = "manager-info";
-        if (department==null){
-            window.location.href = 'http://localhost:8080/manager-info';
+        if (!department){
+            department="all";
+            console.log(department);
+
         }
        window.location.href = '/manager-info/' + department;
 
