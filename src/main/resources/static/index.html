@@ -49,10 +49,13 @@
 
             // 发送 POST 请求到 '/login' 端点
             axios.post('/login', { id: username, password: password })
-                .then(function(response) {
-                    if (response.data){
+                .then(function(res) {
+                    if (res.data.data){
+                        // 本地存储token
+                        localStorage.setItem('token', res.data.data);
                         window.location.href = '/manager-info';
-                        console.log('Login successful:', response);
+                        console.log(res.data);
+                        console.log('Login successful:', res);
                     }
                 })
                 .catch(function(error) {

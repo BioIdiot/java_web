@@ -215,8 +215,10 @@
     </table>
 </div>
 <script src="/js/bootstrap.min-system.js"></script>
+axios.defaults.headers.common["Authorization"] =  localStorage.getItem('token')
 
 <script th:inline="javascript">
+    axios.defaults.headers.common["token"] =  localStorage.getItem('token')
 
     function sendSaveRequest() {
         // 获取表单输入内容
