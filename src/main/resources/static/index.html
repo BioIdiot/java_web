@@ -53,10 +53,12 @@
                     if (res.data.data){
                         // 本地存储token
                         localStorage.setItem('token', res.data.data);
-                        window.location.href = '/manager-info';
+                        window.location.href = '/manager-info?token='+res.data.data;
+                        //axios.get("/manager-info");
+
                         console.log(res.data);
                         console.log('Login successful:', res);
-                    }
+                    }else alert("用户名或密码错误");
                 })
                 .catch(function(error) {
                     // 处理错误
